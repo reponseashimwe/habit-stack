@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function HeroSection() {
@@ -11,12 +12,12 @@ function HeroSection() {
         control of your day and achieve your goals.
       </p>
 
-      <button
+      <Link
         className={`block text-sm font-light rounded-lg  px-9 py-3  text-white transition bg-customRed   focus:outline-none  `}
-        type="button"
+        href="/dashboard"
       >
         {`Let's get started!`}
-      </button>
+      </Link>
     </div>
   );
 }

@@ -20,8 +20,6 @@ export default function InputName({
     openIconWindowObject: { setOpenIconWindow, iconSelected },
   } = useGlobalContextProvider();
 
-  console.log(iconSelected);
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

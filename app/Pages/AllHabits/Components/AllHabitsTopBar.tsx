@@ -3,7 +3,7 @@ import AllHabitsSearchBar from "./AllHabitsSearchBar";
 import DarkMode from "./DarkMode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { UserButton, UserProfile } from "@clerk/nextjs";
+import { UserButton, UserProfile, useUser } from "@clerk/nextjs";
 import { useGlobalContextProvider } from "@/app/contextApi";
 import { darkModeColor, defaultColor } from "@/colors";
 function AllHabitsTopBar() {
@@ -35,6 +35,8 @@ function AllHabitsTopBar() {
     };
   }, []);
 
+  const { user } = useUser();
+
   return (
     <div
       style={{
@@ -43,17 +45,17 @@ function AllHabitsTopBar() {
           ? darkModeColor.background
           : defaultColor.background,
       }}
-      className="  p-5     rounded-md flex justify-between transition-all"
+      className="  p-5     rounded-md flex justify-between transition-all w-full"
     >
       <div className="flex gap-4">
         <div className="max-lg:flex hidden   ">
           <UserButton appearance={userButtonAppearance} />
         </div>
 
-        <div className="flex flex-col max-md:hidden ">
+        <div className="flex flex-col max-md:hidden justify-between">
           <span className="text-xl">
             <span className="font-bold">Hi There</span>
-            <span className="font-light">, Ali</span>
+            <span className="font-light">, {user?.firstName}</span>
           </span>
           <span className="font-light text-[12px] text-gray-400">
             welcome back!
@@ -61,8 +63,8 @@ function AllHabitsTopBar() {
         </div>
       </div>
 
-      <div className="w-[50%] max-md:w-[80%] flex gap-3 justify-between ">
-        <AllHabitsSearchBar />
+      <div className="w-[50%] max-md:w-[80%] flex gap-3 justify-end">
+        {/* <AllHabitsSearchBar /> */}
         <DarkMode />
         <FontAwesomeIcon
           onClick={openSideBarFunction}

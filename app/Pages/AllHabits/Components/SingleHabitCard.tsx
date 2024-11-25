@@ -99,7 +99,6 @@ export function HabitCard({ singleHabit }: { singleHabit: HabitType }) {
     const top = rect.top;
     const left = rect.left;
     setDropDownPositions({ top, left });
-    console.log(singleHabit);
     //Open the dropdown
     event.stopPropagation();
     //Open the dropdown

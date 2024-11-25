@@ -105,8 +105,6 @@ export default function StatisticsBoard() {
       totalCompletedHabits += habitCount;
     });
 
-    console.log(uniqueDates);
-
     //2. Calculate the average
     const averagePerDaily = (totalCompletedHabits / uniqueDates.length).toFixed(
       2

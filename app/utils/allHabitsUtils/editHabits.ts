@@ -49,8 +49,6 @@ export async function editHabit({
     //Update the icon and the areas in the habit object to update in the DB
     const updatedHabit = convertIconsToTextOfHabits(habit);
 
-    console.log(currentHabitSelected._id);
-
     //Use the fetch method to update the habit in the DB
     const response = await fetch(
       `/api/habits?habitId=${currentHabitSelected._id}`,

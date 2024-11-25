@@ -109,8 +109,6 @@ export async function PUT(request: any) {
       { returnDocument: "after" } // Return the updated document
     );
 
-    console.log(updatedHabit);
-
     return NextResponse.json({
       message: "Habit has been updated successfully",
       habit: updatedHabit.value,

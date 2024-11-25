@@ -41,9 +41,10 @@ function Calendar() {
           : defaultColor.backgroundSlate,
       }}
       className="flex mx-4 flex-col gap-6 justify-center items-center mt-10  
-          rounded-xl p-5 pt-7"
+          rounded-xl p-5 pt-7 overflow-x-auto text-xs sm:text-base"
     >
       <DateCalendar
+        className="max-w-full"
         onChange={handleOnChangeDate}
         value={value}
         sx={{

@@ -19,8 +19,6 @@ export default async function editArea({
   allHabits: HabitType[];
   setAllHabits: React.Dispatch<React.SetStateAction<HabitType[]>>;
 }) {
-  console.log(allHabits);
-
   //Convert the icon to text
   const { icon } = areaItem;
   const areaIconText = iconToText(icon as IconProp);
@@ -52,8 +50,6 @@ export default async function editArea({
     }
   });
 
-  console.log(allHabits);
-
   //Convert all the icons to text of all UpdatedHabits
   const convertIconToTextOfAllHabits: HabitType[] = updateAllHabits.map(
     (habit) => {
@@ -67,8 +63,6 @@ export default async function editArea({
       };
     }
   );
-
-  console.log(updateAllAreas);
 
   //Update the area in the DB
   convertIconToTextOfAllHabits.forEach((habit) => {

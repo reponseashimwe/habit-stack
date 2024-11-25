@@ -66,7 +66,7 @@ function DarkMode() {
             ? darkModeColor.background
             : defaultColor.background,
         }}
-        className={`w-[38px] absolute h-[38px] top-1  transform ${
+        className={`w-[38px] absolute h-[38px] top-[.05em] md:top-1  transform ${
           isDarkMode ? "translate-x-[48px]" : "translate-x-1"
         }  rounded-full transition-all`}
       ></div>
