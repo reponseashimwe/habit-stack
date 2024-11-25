@@ -2,6 +2,7 @@ import HeroSection from "./mainPageComponents/HeroSection";
 import Navbar from "./mainPageComponents/Navbar";
 import Image from "next/image";
 import { useCallback } from "react";
+import "./globals.css";
 export default function Home() {
   return (
     <div>

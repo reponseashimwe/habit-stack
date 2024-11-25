@@ -173,8 +173,6 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(isLoading);
-
   useEffect(() => {
     //Fetch data from the server
     const fetchAllHabits = async () => {
@@ -211,7 +209,6 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
         });
 
         // Update the habits array with the updated icons
-        console.log(updatedHabitsWithAreas);
 
         setAllHabits(updatedHabitsWithAreas);
       } catch (error) {
@@ -271,8 +268,6 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
       name: "All",
       clerkUserId: user?.id as string,
     };
-
-    console.log(user);
 
     try {
       const response = await fetch("/api/areas", {

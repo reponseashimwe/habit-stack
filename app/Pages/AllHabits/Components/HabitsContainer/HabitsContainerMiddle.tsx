@@ -59,8 +59,6 @@ export default function HabitsContainerMiddle() {
       return habit.name.toLowerCase().includes(searchInput.toLowerCase());
     });
 
-    console.log(filterBySearch);
-
     // Set the filtered habits state
     setAllFilteredHabits(filterBySearch);
   }, [selectedCurrentDate, allHabits, selectedAreaString, searchInput]);

@@ -1,6 +1,6 @@
-// export const defaultColor = "#d90429";
+// export const defaultColor = "#E30B5C";
 export const defaultColor = {
-  default: "#d90429",
+  default: "#E30B5C",
   textColor: "#000000",
   textColor50: "#94A3B8",
   background: "#FFFFFF",

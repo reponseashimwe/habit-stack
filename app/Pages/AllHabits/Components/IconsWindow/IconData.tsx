@@ -257,8 +257,6 @@ export function textToIcon(iconText: string): IconProp {
 }
 
 export function iconToText(icon: any): string {
-  console.log(icon);
-
   switch (icon.iconName) {
     case "calculator":
       return "faCalculator";

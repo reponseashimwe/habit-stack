@@ -69,7 +69,8 @@ export default function HabitsContainerTop() {
         rounded-md text-sm"
       >
         <FontAwesomeIcon icon={faPlus} />
-        <span>New Habit</span>
+
+        <span className="hidden sm:block">New Habit</span>
       </button>
     </div>
   );

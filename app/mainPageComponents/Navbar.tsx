@@ -8,16 +8,16 @@ import LogoAnName from "../Components/LogoAnName";
 
 function Navbar() {
   const { userId } = useAuth();
-  const defaultColor = "#d90429";
+  const defaultColor = "#E30B5C";
   const backgroundColorObject = { backgroundColor: defaultColor };
   return (
     <header>
-      <div className=" p-8 px-20  ">
-        <div className="sm:flex sm:items-center sm:justify-between ">
-          <div className="text-center  sm:text-left mb-7 sm:mb-0">
+      <div className=" p-8 md:px-20  ">
+        <div className="flex items-center justify-between ">
+          <div className="text-center  sm:text-left ">
             {/* Icon + Name of The App */}
             {/* ----------------------- */}
-            <LogoAnName />
+            <LogoAnName home={true} />
           </div>
           {/*  */}
           {/* The buttons */}
@@ -27,7 +27,7 @@ function Navbar() {
               <Link href={"/dashboard"}>
                 <button
                   style={backgroundColorObject}
-                  className={`block    rounded-lg  px-9 py-3 text-sm font-medium text-white transition   
+                  className={`block test-sm md:text-base   rounded-lg  px-5 py-2 md:px-9 md:py-3 text-sm font-medium text-white transition   
                `}
                   type="button"
                 >
@@ -39,7 +39,7 @@ function Navbar() {
                 <Link href={"/sign-in"}>
                   <button
                     style={backgroundColorObject}
-                    className={`block sm:w-32 w-full rounded-lg  px-9 py-3 text-sm font-medium text-white transition   focus:outline-none  `}
+                    className={`block sm:w-32 w-full rounded-lg  px-5 py-2 md:px-9 md:py-3 text-sm font-medium text-white transition   focus:outline-none  `}
                     type="button"
                   >
                     Sign In
@@ -48,7 +48,7 @@ function Navbar() {
 
                 <Link href={"/sign-up"}>
                   <button
-                    className={`block sm:w-32 w-full border rounded-lg  px-9 py-3 text-sm font-medium   transition   
+                    className={`block sm:w-32 w-full border rounded-lg  px-5 py-2 md:px-9 md:py-3 text-sm font-medium   transition   
               focus:outline-none hover:bg-customRed hover:text-white  border-customRed text-customRed `}
                     type="button"
                   >

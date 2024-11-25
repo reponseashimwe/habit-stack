@@ -1,6 +1,5 @@
 import connectToDB from "@/app/lib/conntectToDB";
 import Area from "@/app/Models/AreaSchema";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -14,8 +13,6 @@ export async function POST(req: Request) {
       icon,
       clerkUserId,
     });
-
-    console.log(area);
 
     const savedArea = await area.save();
 
@@ -82,8 +79,6 @@ export async function PUT(request: any) {
       },
       { returnDocument: "after" } // Return the updated document
     );
-
-    console.log(updateArea);
 
     return NextResponse.json({
       message: "Area has been updated successfully",

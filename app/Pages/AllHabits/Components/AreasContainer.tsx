@@ -67,7 +67,7 @@ export default function AreasContainer() {
       }}
       className="p-5    rounded-md flex gap-3 items-center  transition-all mt-5 text-sm "
     >
-      <div className="  flex gap-3  ">
+      <div className="  flex gap-3 overflow-x-auto ">
         {allAreas.map((area: AreaType, index) => (
           <div onClick={() => toggleSelection(index)} key={index}>
             <SingleAreaContainer
