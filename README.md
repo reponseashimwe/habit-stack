@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# Habit Tracker
+
+This is a PWA-based Habit Tracker application that allows users to track, log, and classify habits. It supports authentication using Clerk (email and Google), and MongoDB for database management. The app is designed with Next.js and is installable on both mobile and PC. [Habit Tracker](https://habit-stack.vercel.com/)
+
+---
+
+## Features
+- User authentication via Clerk (Google and Email).
+- Habit creation, logging, and tracking.
+- Habit classification for better organization.
+- Automated notifications for reminders.
+- Installable as a PWA for mobile and PC.
+
+---
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to set up the project locally:
 
+### Prerequisites
+Make sure you have the following installed:
+- **Node.js** (v18 or higher)
+- **npm** (comes with Node.js) or **pnpm** (if preferred)
+- **MongoDB** (Cloud or Local instance)
+- A **Clerk** account (for authentication)
+
+---
+
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/reponseashimwe/habit-stack.git
+cd habit-tracker
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+Install all required dependencies using npm or pnpm:
+```bash
+npm install
+# OR
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Set Up Environment Variables
+Create a `.env.local` file in the root directory and add the following environment variables:
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_cmVsZXZhbnQtZ2FyLTEwLmNsZXJrLmFjY291bnRzLmRldiQ<your_key_here>
+CLERK_SECRET_KEY=sk_test_ktci6oOa4dqK8rMqRIRsFexCC6DA4rENwvpR5l20Hw<your_key_here>
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+MONGO_URL=mongodb+srv://repuser:xr7l94ddKltRFeN8@applications.wcxhz.mongodb.net/<your_key_here>
+WEBHOOK_SECRET=whsec_qdR4SYun7GeHQQkdWtYDBXqNKdJWxKLH<your_key_here>
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 4. Run MongoDB
+Ensure your MongoDB instance is running. If using a local MongoDB instance, make sure the connection string in `MONGO_URL` matches your setup.
 
-## Learn More
+### 5. Start the Development Server
+Run the following command to start the Next.js development server:
+```bash
+npm run dev
+# OR
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+The application will be available at `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 6. Build for Production (Optional)
+To create a production-ready build, run:
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Authentication with Clerk
+This app uses Clerk for authentication. Ensure that your Clerk account is set up with the correct publishable and secret keys. Update the URLs in `.env.local` if needed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Sign In URL**: `/sign-in`
+- **Sign Up URL**: `/sign-up`
+- **Redirect After Sign-In/Sign-Up**: `/dashboard`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## PWA Functionality
+To install the app as a PWA on mobile or PC:
+1. Open the app in a browser.
+2. Click the "Install" button (or add to the home screen on mobile).
+3. Enjoy the native-app-like access to the app.
+
+---
+
+## Troubleshooting
+- **Issue with MongoDB Connection**: Verify that the `MONGO_URL` is correct and your MongoDB instance is running.
+- **Clerk Setup Errors**: Ensure your Clerk API keys and URLs are accurate.
+- **App Not Installing as PWA**: Check browser compatibility and ensure the service worker is registered.
+
+---
+
+## Contributing
+If you'd like to contribute, fork the repository and create a pull request with your changes.
+
+---
+
+## License
+This project is licensed under the MIT License.
