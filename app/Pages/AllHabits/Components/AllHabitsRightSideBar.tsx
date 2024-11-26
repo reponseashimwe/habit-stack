@@ -17,7 +17,7 @@ function AllHabitsRightSideBar() {
           ? darkModeColor.background
           : defaultColor.background,
       }}
-      className="   flex flex-col items-center-center m-3 rounded-lg p-2 "
+      className="   flex flex-col md:grid grid-cols-2 lg:flex items-center-center m-3 rounded-lg p-2 "
     >
       <UserProfile />
       <MainStatistics />

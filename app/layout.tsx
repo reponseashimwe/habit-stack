@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Favicon */}
-        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
 
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />

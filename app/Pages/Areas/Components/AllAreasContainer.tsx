@@ -5,11 +5,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { useState } from "react";
 import { useGlobalContextProvider } from "@/app/contextApi";
 import { AreaType } from "@/app/Types/GlobalTypes";
-import { textToIcon } from "../../AllHabits/Components/IconsWindow/IconData";
 import { darkModeColor, defaultColor } from "@/colors";
 import DropDown from "@/app/Dropdown";
 import DataFormModal from "@/Modal";
-import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
 import addNewArea from "@/app/utils/allAreasUtils/addNewArea";
 import toast from "react-hot-toast";
@@ -134,11 +132,13 @@ function AllAreasContainer() {
         onClick={handleOnClick}
       />
 
-      {allAreas.map((singleArea, index) => (
-        <div key={index}>
-          <AreaCard singleArea={singleArea} />
-        </div>
-      ))}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {allAreas.map((singleArea, index) => (
+          <div key={index}>
+            <AreaCard singleArea={singleArea} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -210,8 +210,10 @@ function AreaCard({ singleArea }: { singleArea: AreaType }) {
           icon={singleArea.icon}
         />
         <div className="flex flex-col">
-          <span className="font-semibold ">{singleArea.name}</span>
-          <span className="text-gray-400 text-[13px] flex gap-[2px] items-center">
+          <span className="font-semibold max-sm:text-sm">
+            {singleArea.name}
+          </span>
+          <span className="text-gray-400 text-[13px] flex gap-[2px] items-center max-sm:text-xs">
             <span className=" ">
               {singleArea.name === "All"
                 ? countAll(allHabits, singleArea)

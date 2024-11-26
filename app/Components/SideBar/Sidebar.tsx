@@ -34,11 +34,12 @@ function Sidebar() {
       }}
       ref={sideBarRef}
       className={`${
-        !openSideBar ? "max-xl:hidden" : " fixed shadow-lg"
-      } flex-grow z-50  p-10 flex-col   min-h-screen transition-all `}
+        !openSideBar ? "max-sm:flex max-lg:hidden" : " fixed "
+      } flex-grow z-40 sm:z-50 shadow-2xl sm:shadow max-sm:shadow-black -mt-2 p-2 px-4 sm:p-10 sm:flex-col justify-between flex   sm:min-h-screen transition-all w-64 fixed bottom-0 left-0 max-sm:w-full max-sm:items-center `}
     >
       <LogoAnName />
       <MenuSelection />
+
       <LogoutSection />
     </div>
   );

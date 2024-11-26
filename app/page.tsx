@@ -1,9 +1,22 @@
+"use client";
+
 import HeroSection from "./mainPageComponents/HeroSection";
 import Navbar from "./mainPageComponents/Navbar";
 import Image from "next/image";
-import { useCallback } from "react";
+import { useEffect } from "react";
 import "./globals.css";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const { isSignedIn } = useAuth(); // Check if user is signed in
+  const router = useRouter();
+
+  // Redirect if signed in
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push("/dashboard"); // Redirect to the dashboard
+    }
+  }, [isSignedIn, router]);
   return (
     <div>
       <Navbar />

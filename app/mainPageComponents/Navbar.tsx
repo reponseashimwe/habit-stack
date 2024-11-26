@@ -22,7 +22,7 @@ function Navbar() {
           {/*  */}
           {/* The buttons */}
 
-          <div>
+          <div className="">
             {userId ? (
               <Link href={"/dashboard"}>
                 <button
@@ -35,7 +35,7 @@ function Navbar() {
                 </button>
               </Link>
             ) : (
-              <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+              <div className="mt-4 flex gap-4 sm:mt-0 items-center">
                 <Link href={"/sign-in"}>
                   <button
                     style={backgroundColorObject}

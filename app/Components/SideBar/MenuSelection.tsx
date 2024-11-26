@@ -2,17 +2,21 @@ import React from "react";
 import { useGlobalContextProvider } from "@/app/contextApi";
 import { menuItemType } from "@/app/Types/MenuItemType";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UserButton } from "@clerk/nextjs";
 
 function MenuSelection() {
   const { menuItemsObject } = useGlobalContextProvider();
   const { menuItems } = menuItemsObject;
   return (
-    <div className="mt-[180px] ">
+    <div className="flex max-sm:px-6 sm:flex-col max-sm:w-full max-sm:justify-between max-sm:items-center">
       {menuItems.map((menuItem: menuItemType, menuItemIdex: number) => (
         <div key={menuItemIdex}>
           <SingleMenuItem menuItemProp={menuItem} />
         </div>
       ))}
+      <div className="flex items-center sm:hidden">
+        <UserButton />
+      </div>
     </div>
   );
 }
@@ -34,20 +38,33 @@ function SingleMenuItem({ menuItemProp }: { menuItemProp: menuItemType }) {
   return (
     <div
       onClick={handleClickedItem}
-      className={`flex gap-2 items-center p-2  mb-3 ml-8
-      cursor-pointer rounded-md w-36 select-none text-gray-400   ${
+      className={`flex flex-col sm:flex-row max-sm:text-xs gap-1 sm:gap-2 items-center p-2  sm:mb-3
+      cursor-pointer rounded-md sm:w-36 select-none text-gray-400   ${
         menuItemProp.isSelected
-          ? "bg-customRed transition-all text-white"
+          ? "text-customRed sm:bg-customRed transition-all sm:text-white"
           : "hover:text-customRed"
       } `}
     >
       <FontAwesomeIcon
-        className=" "
+        className={
+          menuItemProp.isSelected
+            ? "max-sm:text-customRed transition-all sm:text-white"
+            : "hover:text-customRed"
+        }
         icon={menuItemProp.icon}
         width={20}
         height={20}
       />
-      <div>{menuItemProp.name}</div>
+      <div
+        className={`
+          ${
+            menuItemProp.isSelected
+              ? "max-sm:text-customRed sm:bg-customRed transition-all sm:text-white"
+              : "hover:text-customRed"
+          } max-sm:text-[.7rem]`}
+      >
+        {menuItemProp.name}
+      </div>
     </div>
   );
 }

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { defaultColor } from "@/colors";
 import { useGlobalContextProvider } from "@/app/contextApi";
 import { darkModeColor } from "@/colors";
@@ -27,8 +25,6 @@ export default function StatisticsHabitCard({ habit }: { habit: HabitType }) {
     return (calculateStreak(habit) / habit.completedDays.length) * 100 || 0;
   }
 
-  console.log(habit.name, calculateConsistency(habit));
-
   return (
     <div
       style={{
@@ -37,52 +33,62 @@ export default function StatisticsHabitCard({ habit }: { habit: HabitType }) {
           : defaultColor.backgroundSlate,
         color: isDarkMode ? darkModeColor.textColor : "black",
       }}
-      className=" p-5 rounded-md m-3 mb-6 "
+      className=" px-5 py-2 sm:py-5 rounded-md m-3 mb-6 "
     >
       {/* Icon + Habit name +  notification + frequency */}
-      <div className="flex justify-between items-center">
+      <div className="flex mt-5 max-md:flex-col md:flex-row justify-between md:items-center">
         <div className="flex gap-3 items-center">
           {/* Icon */}
-          <div className="bg-customRed w-10 h-10 rounded-full p-3 flex items-center justify-center text-white">
-            <FontAwesomeIcon icon={faBook} />
+          <div className="bg-customRed w-10 h-10 md:w-10 md:h-10 rounded-full p-3 flex items-center justify-center text-white">
+            <FontAwesomeIcon
+              className="  p-3 rounded-full w-4 h-4 bg-customRed text-white"
+              height={20}
+              width={20}
+              icon={habit.icon}
+            />
           </div>
           {/* Habit Name */}
-          <span>{habit.name}</span>
+          <span className="font-medium max-sm:text-sm">{habit.name}</span>
           {/* Notification */}
+          <div></div>
+        </div>
+        {/*  */}
+        {/* Freqeuncy */}
+        <div className="flex justify-between gap-4 max-md:pl-14 text-xs items-center">
+          <span className="text-gray-400 truncate">{recurringDaysText}</span>
           {habit.isNotificationOn && (
             <span
               style={{
                 backgroundColor: defaultColor[100],
                 color: defaultColor.default,
               }}
-              className=" p-1 text-sm px-3 rounded-md"
+              className=" p-1 pl-4 md:pl-1 block px-3 rounded-md"
             >
-              {habit.notificationTime}
+              {habit.notificationTime.replace(" ", "")}
             </span>
           )}
         </div>
-        {/*  */}
-        {/* Freqeuncy */}
-        <div>
-          <span className="text-gray-400">{recurringDaysText}</span>
-        </div>
       </div>
       {/* Single card stats */}
-      <div className="  mt-5 p-2 grid grid-cols-3">
+      <div className="   p-2 grid grid-cols-3">
         <div className="flex flex-col gap-1 justify-center   items-center">
-          <span className="font-bold">{habit.completedDays.length}</span>
-          <span>Total</span>
+          <span className="font-bold max-sm:text-sm">
+            {habit.completedDays.length}
+          </span>
+          <span className="max-sm:text-xs">Total</span>
         </div>
         <div className="flex flex-col gap-1 justify-center   items-center">
-          <span className="font-bold">
+          <span className="font-bold max-sm:text-sm">
             {calculateConsistency(habit).toFixed(0) || 0}%
           </span>
-          <span>Consistency</span>
+          <span className="max-sm:text-xs">Consistency</span>
         </div>
 
         <div className="flex flex-col gap-1 justify-center   items-center">
-          <span className="font-bold">{calculateStreak(habit)}</span>
-          <span>Streaks</span>
+          <span className="font-bold max-sm:text-sm">
+            {calculateStreak(habit)}
+          </span>
+          <span className="max-sm:text-xs">Streaks</span>
         </div>
       </div>
       {/* Headmap */}
@@ -93,8 +99,8 @@ export default function StatisticsHabitCard({ habit }: { habit: HabitType }) {
             ? darkModeColor.backgroundSlate
             : defaultColor.backgroundSlate,
         }}
-        className={`w-full mt-8 flex justify-center     transition-all ${
-          isExpanded ? "h-48" : "h-0"
+        className={`w-full mt-5 flex justify-center overflow-x-auto    transition-all ${
+          isExpanded ? "h-auto md:h-48" : "h-0"
         }`}
       >
         <div className={`w-[700px]    ${isExpanded ? "block" : "hidden"}`}>
@@ -142,20 +148,22 @@ const HabitHeatmap = ({ habit }: { habit: HabitType }) => {
   startDate.setMonth(endDate.getMonth() - 6);
 
   return (
-    <div>
-      <CalendarHeatmap
-        startDate={startDate}
-        endDate={endDate}
-        values={dateData}
-        showMonthLabels={true}
-        showWeekdayLabels={true}
-        classForValue={(value) => {
-          if (!value) {
-            return "color-empty";
-          }
-          return `color-scale-4`;
-        }}
-      />
+    <div className="max-w-full w-full overflow-x-auto">
+      <div className="min-w-[40em] max-sm:pl-44">
+        <CalendarHeatmap
+          startDate={startDate}
+          endDate={endDate}
+          values={dateData}
+          showMonthLabels={true}
+          showWeekdayLabels={true}
+          classForValue={(value) => {
+            if (!value) {
+              return "color-empty";
+            }
+            return `color-scale-4`;
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -195,3 +195,45 @@
 .react-calendar-heatmap .color-scale-4 {
   fill: #c20c1c;
 }
+
+body {
+  font-family: "Poppins";
+}
+
+.css-innj4t-MuiPickersYear-yearButton,
+.css-nl75kr-MuiDateCalendar-root .MuiPickersDay-root {
+  font-family: inherit !important;
+}
+
+.MuiPickersCalendarHeader-label {
+  font-size: 0.8rem;
+  font-family: "Poppins";
+  font-weight: 700;
+}
+
+.css-nk89i7-MuiPickersCalendarHeader-root {
+  padding-right: 0;
+  padding-left: 1rem !important;
+}
+
+.css-xazc1j-MuiPickersYear-root button {
+  font-size: 0.8rem;
+}
+
+.css-1vs7z2v-MuiYearCalendar-root {
+  max-width: 100%;
+}
+.MuiPickersArrowSwitcher-spacer {
+  width: 1em !important;
+}
+
+.css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel {
+  color: inherit !important;
+  opacity: 0.5;
+}
+
+.css-9reuh9-MuiPickersArrowSwitcher-root button,
+.css-12mkn7b-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton {
+  color: inherit !important;
+  opacity: 0.7;
+}

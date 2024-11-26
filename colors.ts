@@ -11,7 +11,7 @@ export const defaultColor = {
 };
 
 export const darkModeColor = {
-  background: "#003049",
-  textColor: "#FFFFFF",
-  backgroundSlate: "#415a77",
+  background: "#0A0A0A", // Professional dark black with a hint of depth
+  textColor: "#F5F5F5", // Slightly off-white for better readability
+  backgroundSlate: "#212121",
 };

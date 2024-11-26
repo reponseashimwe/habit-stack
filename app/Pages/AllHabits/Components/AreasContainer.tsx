@@ -65,7 +65,7 @@ export default function AreasContainer() {
           ? darkModeColor.background
           : defaultColor.background,
       }}
-      className="p-5    rounded-md flex gap-3 items-center  transition-all mt-5 text-sm "
+      className="py-3 bg-transparent   rounded-md flex gap-3 items-center  transition-all mt-5 text-sm "
     >
       <div className="  flex gap-3 overflow-x-auto ">
         {allAreas.map((area: AreaType, index) => (
@@ -90,7 +90,7 @@ export default function AreasContainer() {
     return (
       <div
         className={`  p-2 px-3  rounded-md flex gap-2   items-center cursor-pointer select-none ${
-          isSelected ? "bg-customRed text-white" : "text-gray-400"
+          isSelected ? "text-customRed" : "text-gray-500"
         } `}
       >
         <FontAwesomeIcon icon={singleArea.icon} />

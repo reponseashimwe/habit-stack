@@ -2,44 +2,54 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useGlobalContextProvider } from "@/app/contextApi";
-import Button from "@/Button";
-
 import { darkModeColor, defaultColor } from "@/colors";
+import DarkMode from "../../AllHabits/Components/DarkMode";
+import Button from "@/Button";
 function AreasTopBar() {
+  //  const {
+  //    openSideBarObject,
+  //    darkModeObject: { isDarkMode },
+  //    openAreaFormObject: { openAreaForm, setOpenAreaForm },
+  //  } = useGlobalContextProvider();
+  //  const { setOpenSideBar } = openSideBarObject;
+
   const {
     openSideBarObject,
-    darkModeObject: { isDarkMode },
+    darkModeObject,
     openAreaFormObject: { openAreaForm, setOpenAreaForm },
   } = useGlobalContextProvider();
-  const { setOpenSideBar } = openSideBarObject;
+  const { isDarkMode } = darkModeObject;
+  const { openSideBar, setOpenSideBar } = openSideBarObject;
 
   return (
     <div
       style={{
-        backgroundColor: isDarkMode
-          ? darkModeColor.background
-          : defaultColor.background,
+        backgroundColor: isDarkMode ? darkModeColor.background : "white",
         color: isDarkMode ? darkModeColor.textColor : "black",
       }}
-      className="  p-5  rounded-md flex justify-between items-center transition-all"
+      className=" max-sm:bg-transparent sm:p-6 pt-3  rounded-md flex justify-between items-center transition-all"
     >
-      <div className="flex gap-5 items-center">
-        <span className="text-xl font-bold">Areas</span>
+      <div className="  ">
+        <span className="text-lg sm:text-xl font-bold">Areas</span>
+      </div>
+      <div className="w-[50%] max-md:w-[80%] flex gap-3 justify-end">
         <Button
           style={{ backgroundColor: defaultColor.default }}
-          className="text-white p-2 px-4 ml-3"
+          className="text-white p-2 px-4 ml-3 inline-flex"
           size="small"
-          icon="plus"
           onClick={() => setOpenAreaForm(true)}
+          icon="plus"
         >
-          Add Area
+          <span className="hidden sm:block">Add Area</span>
         </Button>
+        {/* <AllHabitsSearchBar /> */}
+        <DarkMode />
+        <FontAwesomeIcon
+          onClick={() => setOpenSideBar(!openSideBar)}
+          className="m-2 max-xl:flex hidden  mt-[13px] cursor-pointer  "
+          icon={faBars}
+        />
       </div>
-      <FontAwesomeIcon
-        onClick={() => setOpenSideBar(true)}
-        className="m-2 max-xl:flex hidden  mt-[13px] cursor-pointer  "
-        icon={faBars}
-      />
     </div>
   );
 }

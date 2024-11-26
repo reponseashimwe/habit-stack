@@ -184,7 +184,7 @@ function TimerPicker({
       style={{
         backgroundColor: isDarkMode ? darkModeColor.background : "white",
       }}
-      className={` w-[413px] top-[89px] left-1/2
+      className={` w-[413px] max-w-[80%] top-[89px] left-1/2
     transform -translate-x-1/2 z-50 p-7 rounded-md shadow-md ${
       openTimePickerWindow ? "absolute" : "hidden"
     } `}
@@ -205,7 +205,7 @@ function TimerPicker({
       </span>
       {/* -------------------------------------------- */}
       {/* Input fields */}
-      <div className=" flex  gap-8 mt-9">
+      <div className=" flex flex-col md:flex-row gap-8 mt-9">
         <div className=" flex gap-2 justify-center items-center">
           {/* Hours field */}
           <input
@@ -253,7 +253,7 @@ function TimerPicker({
         </div>
         {/* -------------------------------------------- */}
         {/* AM OR PM Options */}
-        <div className="flex flex-col gap-3  ">
+        <div className="flex flex-row md:flex-col gap-3  ">
           {meridiem.map((singleMeridiem, index) => (
             <span
               key={index}

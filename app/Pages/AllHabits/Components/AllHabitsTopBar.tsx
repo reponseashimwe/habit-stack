@@ -3,7 +3,7 @@ import AllHabitsSearchBar from "./AllHabitsSearchBar";
 import DarkMode from "./DarkMode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { UserButton, UserProfile, useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { useGlobalContextProvider } from "@/app/contextApi";
 import { darkModeColor, defaultColor } from "@/colors";
 function AllHabitsTopBar() {
@@ -45,19 +45,18 @@ function AllHabitsTopBar() {
           ? darkModeColor.background
           : defaultColor.background,
       }}
-      className="  p-5     rounded-md flex justify-between transition-all w-full"
+      className="max-sm:bg-transparent sm:p-6 pt-3   rounded-md flex justify-between transition-all w-full"
     >
       <div className="flex gap-4">
-        <div className="max-lg:flex hidden   ">
-          <UserButton appearance={userButtonAppearance} />
-        </div>
-
-        <div className="flex flex-col max-md:hidden justify-between">
+        <div className="flex flex-col  justify-between">
           <span className="text-xl">
-            <span className="font-bold">Hi There</span>
-            <span className="font-light">, {user?.firstName}</span>
+            <span className="font-bold max-sm:hidden">Hi There,</span>
+            <span className="font-light max-sm:font-medium">
+              {" "}
+              {user?.firstName}
+            </span>
           </span>
-          <span className="font-light text-[12px] text-gray-400">
+          <span className="font-light text-[12px] text-gray-400 whitespace-nowrap">
             welcome back!
           </span>
         </div>
@@ -68,7 +67,7 @@ function AllHabitsTopBar() {
         <DarkMode />
         <FontAwesomeIcon
           onClick={openSideBarFunction}
-          className="m-2 max-xl:flex hidden  mt-[13px] cursor-pointer  "
+          className="m-2 hidden sm:flex lg:hidden  mt-[13px] cursor-pointer  "
           icon={faBars}
         />
       </div>

@@ -10,36 +10,25 @@ import {
 
 import { GlobalContextType } from "./Types/GlobalContextType";
 import { menuItemType } from "./Types/MenuItemType";
-import { faSlack, faUpwork } from "@fortawesome/free-brands-svg-icons";
 import {
-  faBorderAll,
-  faBriefcase,
-  faCode,
+  faCheckCircle,
   faFlask,
   faGlobe,
-  faGraduationCap,
-  faSortAmountDesc,
-  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faChartSimple,
   faLayerGroup,
-  faList,
   faSun,
   faMoon,
-  faRectangleList,
-  faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { DarkModeItem } from "./Types/DarkModeTypes";
 import { AreaType, HabitType } from "./Types/GlobalTypes";
-import AllHabits from "./Pages/AllHabits/AllHabits";
 import {
   iconToText,
   textToIcon,
 } from "./Pages/AllHabits/Components/IconsWindow/IconData";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { getDateString } from "./utils/allHabitsUtils/DateFunctions";
-import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 
 const GlobalContext = createContext<GlobalContextType>({
@@ -132,7 +121,7 @@ const GlobalContext = createContext<GlobalContextType>({
 
 function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [menuItems, setMenuItems] = useState<menuItemType[]>([
-    { name: "All Habits", isSelected: true, icon: faRectangleList },
+    { name: "All Habits", isSelected: true, icon: faCheckCircle },
     { name: "Statistics", isSelected: false, icon: faChartSimple },
     { name: "Areas", isSelected: false, icon: faLayerGroup },
   ]);

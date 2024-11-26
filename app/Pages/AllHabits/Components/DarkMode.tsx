@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useGlobalContextProvider } from "@/app/contextApi";
-import { Icon, IconProp, icon } from "@fortawesome/fontawesome-svg-core";
 import { darkModeColor, defaultColor } from "@/colors";
 
 function DarkMode() {
@@ -41,21 +39,21 @@ function DarkMode() {
           ? darkModeColor.backgroundSlate
           : defaultColor.backgroundSlate,
       }}
-      className="  w-[90px] relative rounded-3xl flex"
+      className="  w-[40px] sm:w-[90px] h-[38px] overflow-hidden relative rounded-3xl flex"
     >
       {darkModeItems.map((singleItem, singleItemIndex) => (
         <div
           key={singleItemIndex}
           onClick={() => handleClickedItem(singleItemIndex)}
-          className=" h-full w-[45px] z-40  flex justify-center items-center"
+          className={` h-full w-[45px] z-40 max-sm:${
+            singleItem.isSelected ? "hidden" : "flex"
+          }  flex justify-center items-center`}
         >
           <FontAwesomeIcon
             className={`${
               singleItem.isSelected ? "text-customRed" : "text-gray-300"
-            } cursor-pointer`}
+            } cursor-pointer w-5`}
             icon={singleItem.icon}
-            width={20}
-            height={20}
           />
         </div>
       ))}
@@ -66,7 +64,7 @@ function DarkMode() {
             ? darkModeColor.background
             : defaultColor.background,
         }}
-        className={`w-[38px] absolute h-[38px] top-[.05em] md:top-1  transform ${
+        className={`w-[38px] absolute h-[38px] top-[.05em]   transform ${
           isDarkMode ? "translate-x-[48px]" : "translate-x-1"
         }  rounded-full transition-all`}
       ></div>
