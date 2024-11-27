@@ -33,15 +33,18 @@ function AreasTopBar() {
         <span className="text-lg sm:text-xl font-bold">Areas</span>
       </div>
       <div className="w-[50%] max-md:w-[80%] flex gap-3 justify-end">
-        <Button
-          style={{ backgroundColor: defaultColor.default }}
-          className="text-white p-2 px-4 ml-3 inline-flex"
-          size="small"
-          onClick={() => setOpenAreaForm(true)}
-          icon="plus"
-        >
-          <span className="hidden sm:block">Add Area</span>
-        </Button>
+        <div>
+          <Button
+            style={{ backgroundColor: defaultColor.default }}
+            className="text-white p-2 px-4 ml-3 inline-flex"
+            size="small"
+            onClick={() => setOpenAreaForm(true)}
+            icon="plus"
+          >
+            <span className="hidden sm:block">Add Area</span>
+          </Button>
+        </div>
+
         {/* <AllHabitsSearchBar /> */}
         <DarkMode />
         <FontAwesomeIcon

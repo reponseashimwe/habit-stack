@@ -12,6 +12,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { darkModeColor, defaultColor } from "@/colors";
 import { useRouter } from "next/navigation";
+import { subscribeUser } from "../SendNotification";
 
 function Dashboard() {
   const { user } = useUser(); // Get the user object from Clerk
@@ -30,13 +31,44 @@ function Dashboard() {
   const [selectedMenu, setSelectedMenu] = useState<menuItemType | null>(null);
   let selectComponent = null;
 
-  const requestPermission = useCallback(() => {
-    if ("Notification" in window) {
-      Notification.requestPermission().then(function (permission) {
+  const requestPermission = useCallback(async () => {
+    if (user) {
+      if ("Notification" in window) {
+        const permission = await Notification.requestPermission();
         if (permission === "granted") {
-          console.log("Permission is granted");
+          subscribeUser(user.id); // Subscribe the user to push notifications
         }
-      });
+      }
+    }
+  }, [user]);
+
+  // Handle service worker registration
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js") // Register the main service worker (handles caching, etc.)
+        .then((registration) => {
+          console.log(
+            "Service Worker registered with scope:",
+            registration.scope
+          );
+        })
+        .catch((error) => {
+          console.error("Service Worker registration failed:", error);
+        });
+
+      // Register the push notification worker (handles push notifications)
+      navigator.serviceWorker
+        .register("/worker/index.js") // Register the push notification worker
+        .then((registration) => {
+          console.log(
+            "Push Notification Worker registered with scope:",
+            registration.scope
+          );
+        })
+        .catch((error) => {
+          console.error("Push Notification Worker registration failed:", error);
+        });
     }
   }, []);
 
@@ -44,7 +76,7 @@ function Dashboard() {
     console.log("requesting permission");
 
     if ("Notification" in window) {
-      requestPermission();
+      requestPermission(); // Request notification permission when the page loads
     }
   }, [requestPermission]);
 
@@ -77,7 +109,7 @@ function Dashboard() {
           ? darkModeColor.backgroundSlate
           : defaultColor.backgroundSlate,
       }}
-      className="flex   "
+      className="flex"
     >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Sidebar />
