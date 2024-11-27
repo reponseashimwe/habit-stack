@@ -4,6 +4,7 @@ export function sendNotifications(habitName: string) {
   if ("Notification" in window && Notification.permission === "granted") {
     // const notification = new Notification("Habit Tracker", {
     //   body: `It's time to do your habit: ${habitName}`,
+    //   icon: "/icons/icon.svg",
     // });
     // // Close the notification after a specified time (e.g., 5 seconds)
     // setTimeout(() => {
