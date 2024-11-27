@@ -6,10 +6,6 @@ export function sendNotifications(habitName: string) {
       body: `It's time to do your habit: ${habitName}`,
       icon: "/icons/icon.svg",
     });
-    // Close the notification after a specified time (e.g., 5 seconds)
-    setTimeout(() => {
-      notification.close();
-    }, 5000); // 5000 milliseconds = 5 seconds
   }
 }
 
