@@ -1,10 +1,18 @@
 // Listen for the `push` event
 self.addEventListener("push", (event) => {
-  console.log("Push event received:", event);
+  console.log("Push event received:", event.data);
 
   // Extract data from the push event
-  const data = event.data ? JSON.parse(event.data.text()) : {};
-  console.log("Push data:", data);
+  let data = {};
+
+  if (event.data) {
+    try {
+      data = JSON.parse(event.data.text());
+    } catch (err) {
+      console.error("Failed to parse push data:", err);
+      data = { message: "This is a test message!" };
+    }
+  }
 
   const title = data.title || "Default Title";
   const options = {
@@ -16,8 +24,19 @@ self.addEventListener("push", (event) => {
     },
   };
 
+  console.log(data);
+
   // Show the notification
-  event.waitUntil(self.registration.showNotification(title, options));
+  event.waitUntil(
+    self.registration
+      .showNotification(title, options)
+      .then(() => {
+        console.log("Notification shown");
+      })
+      .catch((err) => {
+        console.error("Failed to show notification:", err);
+      })
+  );
 });
 
 // Listen for the `notificationclick` event
