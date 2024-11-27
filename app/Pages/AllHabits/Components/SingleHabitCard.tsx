@@ -116,7 +116,7 @@ export function HabitCard({ singleHabit }: { singleHabit: HabitType }) {
 
   return (
     //Element for the whole Habit cards
-    <div className="  flex p-3 items-center justify-between  ">
+    <div className="  flex py-3 sm:px-3 items-center justify-between  ">
       {/* The rounded checkbox */}
       <Checkbox
         icon={<RadioButtonUncheckedIcon />}
@@ -142,35 +142,40 @@ export function HabitCard({ singleHabit }: { singleHabit: HabitType }) {
         <div className="  w-full">
           {/* Divs for the icon and the name of the habit */}
           <div className="flex gap-2 justify-between   ">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2">
               <FontAwesomeIcon
-                className="  p-3 rounded-full w-4 h-4 bg-customRed text-white"
+                className="  p-3 rounded-full w-4 h-4 bg-customRed bg-opacity-70 text-white"
                 height={20}
                 width={20}
                 icon={singleHabit.icon}
               />
-              <span className="">{singleHabit.name}</span>
+              <div className="flex flex-col gap-3">
+                <span className="font-medium max-sm:text-sm">
+                  {singleHabit.name}
+                </span>
+
+                <div className="flex gap-2">
+                  {singleHabit.areas.map((singleArea, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        color: isDarkMode
+                          ? darkModeColor.textColor
+                          : defaultColor.default,
+                        backgroundColor: isDarkMode
+                          ? defaultColor[50]
+                          : defaultColor[100],
+                      }}
+                      className="p-1  text-[12px]   rounded-md px-2 "
+                    >
+                      <span className=" ">{singleArea.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           {/* Divs for the areas */}
-          <div className="flex gap-2 mt-3  ">
-            {singleHabit.areas.map((singleArea, index) => (
-              <div
-                key={index}
-                style={{
-                  color: isDarkMode
-                    ? darkModeColor.textColor
-                    : defaultColor.default,
-                  backgroundColor: isDarkMode
-                    ? defaultColor[50]
-                    : defaultColor[100],
-                }}
-                className="p-1  text-[12px]   rounded-md px-2 "
-              >
-                <span className=" ">{singleArea.name}</span>
-              </div>
-            ))}
-          </div>
         </div>
         {/* div for the three dots button */}
         <div className="w-10 flex items-center justify-center  ">

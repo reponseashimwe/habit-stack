@@ -30,13 +30,15 @@ function HabitsCompleted() {
           ? darkModeColor.background
           : defaultColor.background,
       }}
-      className=" mt-7 p-8 py-10   rounded-md"
+      className=" mt-7 p-2 sm:p-3 md:p-5   rounded-md"
     >
-      <span className="font-bold text-lg mb-2">Habits Completed</span>
+      <span className="font-bold text-lg mb-2 px-3 mt-2 block">
+        Habits Completed
+      </span>
       <div className="mt-7  opacity-50  ">
         <div className="mt-10 w-full flex justify-center">
           {areAllHabitsNotCompleted && (
-            <p className="text-sm text-gray-400 w-72  text-center">{`Habit stacking is like a superpower! Don't let it go to waste!`}</p>
+            <p className="text-sm text-gray-400 w-72  p-5 text-center">{`Habit stacking is like a superpower! Don't let it go to waste!`}</p>
           )}
         </div>
 

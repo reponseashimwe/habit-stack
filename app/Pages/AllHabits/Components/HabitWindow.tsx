@@ -191,7 +191,7 @@ function HabitWindow() {
         backgroundColor: isDarkMode ? darkModeColor.background : "white",
         color: isDarkMode ? darkModeColor.textColor : "black",
       }}
-      className={` top-[3%] left-1/2 transform -translate-x-1/2 w-[80%] z-50 p-10 
+      className={` top-[3%] left-1/2 transform -translate-x-1/2 w-[80%] z-50 p-5  text-xs md:p-10 
     rounded-md shadow-md   ${openHabitWindow ? "absolute" : "hidden"}`}
     >
       <TimerPicker onSaveTime={updateReminderTime} />
@@ -426,7 +426,7 @@ function Repeat({
 
   return (
     <div className="flex flex-col gap-2 mt-10 px-3 ">
-      <span className="font-semibold text-[17px]  ">Repeat</span>
+      <span className="font-semibold text-[15px]  ">Repeat</span>
 
       <div className="flex gap-4 mt-2 items-center">
         {repeatOptions.map((singleOption, index) => (
@@ -527,7 +527,7 @@ function DailyOptions({
   return (
     <div className="mt-5 flex flex-col gap-4">
       <span className="font-medium opacity-85">On These Days</span>
-      <div className="flex gap-3 w-full">
+      <div className="flex gap-3 w-full flex-wrap">
         {allDays.map((singleDay, singleDayIndex) => (
           <span
             onClick={() => selectedDays(singleDayIndex)}
@@ -660,7 +660,7 @@ function Reminder({
   return (
     <div className="flex flex-col gap-2 mt-10 px-3 ">
       <div className="flex justify-between">
-        <span className="font-semibold text-[17px]">Daily Notification</span>
+        <span className="font-semibold text-[15px]">Daily Notification</span>
         <ToggleSwitch />
       </div>
 

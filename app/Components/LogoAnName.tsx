@@ -4,7 +4,7 @@ import { defaultColor } from "@/colors";
 
 function LogoAnName({ home = false }: { home?: boolean }) {
   return (
-    <div className="flex gap-2 items-center sm:justify-start justify-center">
+    <div className="hidden sm:flex gap-2 items-center sm:justify-start justify-center">
       <span className="text-2xl font-light flex items-center gap-2 ">
         {/* The Icon */}
         <div

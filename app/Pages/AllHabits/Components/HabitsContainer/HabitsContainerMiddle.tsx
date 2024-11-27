@@ -1,20 +1,10 @@
-import { faCode } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Checkbox, IconButton } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import React, { useEffect } from "react";
 import { useGlobalContextProvider } from "@/app/contextApi";
-import { darkModeColor, defaultColor } from "@/colors";
-import { AreaType, HabitType } from "@/app/Types/GlobalTypes";
+import { defaultColor } from "@/colors";
+import { HabitType } from "@/app/Types/GlobalTypes";
 import { getCurrentDayName } from "@/app/utils/allHabitsUtils/DateFunctions";
-import { ListIcon } from "@/app/Assets/ListIcon";
 import EmptyHabitsPlaceHolder from "@/app/EmptyPlaceHolders/HabitsEmptyPlaceHolder";
-import { v4 as uuidv4 } from "uuid";
 import { HabitCard } from "../SingleHabitCard";
-import WellDonePlaceHolder from "@/app/EmptyPlaceHolders/HabitsEmptyPlaceHolder";
 import { SuccessIcon } from "@/app/Assets/SuucessIcon";
 import LoadingScreen from "@/app/LodingScreen";
 
@@ -77,7 +67,7 @@ export default function HabitsContainerMiddle() {
   }
 
   return (
-    <div className=" p-3">
+    <div className=" sm:p-3">
       {isLoading ? (
         <LoadingScreen />
       ) : (

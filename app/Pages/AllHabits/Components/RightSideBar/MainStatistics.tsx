@@ -6,7 +6,6 @@ import {
 } from "@/app/Pages/Statistics/Components/StatisticsBoard";
 import { defaultColor, darkModeColor } from "@/colors";
 import { useGlobalContextProvider } from "@/app/contextApi";
-import AllHabits from "../../AllHabits";
 import { getCurrentDayName } from "@/app/utils/allHabitsUtils/DateFunctions";
 import { HabitType } from "@/app/Types/GlobalTypes";
 function MainStatistics() {

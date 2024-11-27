@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { SignOutButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Sidebar from "../Components/SideBar/Sidebar";
 import { useGlobalContextProvider } from "../contextApi";
 import { menuItemType } from "../Types/MenuItemType";
@@ -11,8 +11,19 @@ import Statistics from "../Pages/Statistics/Statistics";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { darkModeColor, defaultColor } from "@/colors";
+import { useRouter } from "next/navigation";
 
 function Dashboard() {
+  const { user } = useUser(); // Get the user object from Clerk
+  const router = useRouter(); // Access the Next.js router
+
+  // Redirect to sign-in page if not logged in
+  useEffect(() => {
+    if (user === null) {
+      router.push("/sign-in"); // Redirect to the sign-in page if not logged in
+    }
+  }, [user]);
+
   const { menuItemsObject, darkModeObject } = useGlobalContextProvider();
   const { isDarkMode } = darkModeObject;
   const { menuItems } = menuItemsObject;
@@ -70,7 +81,7 @@ function Dashboard() {
     >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Sidebar />
-        {selectComponent}
+        <div className="lg:pl-64 w-full max-sm:pb-16">{selectComponent}</div>
         <BlackSoftLayer />
       </LocalizationProvider>
     </div>

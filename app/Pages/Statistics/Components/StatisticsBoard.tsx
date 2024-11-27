@@ -41,23 +41,6 @@ export default function StatisticsBoard() {
     selectedCurrentDayObject: { selectedCurrentDate },
   } = useGlobalContextProvider();
 
-  const filteredStatisticsCard =
-    windowWidth < 640
-      ? statisticsCard.filter((card) => card.text !== "Average Per Daily")
-      : statisticsCard;
-
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   useEffect(() => {
     const dateCounts: { [key: string]: number } = {};
 
@@ -130,9 +113,9 @@ export default function StatisticsBoard() {
         backgroundColor: isDarkMode ? darkModeColor.background : "white",
         color: isDarkMode ? darkModeColor.textColor : "black",
       }}
-      className="p-5  mt-4 rounded-md grid grid-cols-4 gap-4 max-sm:grid-cols-3"
+      className="p-5  mt-4 rounded-md grid gap-4 grid-cols-2 md:grid-cols-4"
     >
-      {filteredStatisticsCard.map((singleCard, singleIndex) => (
+      {statisticsCard.map((singleCard, singleIndex) => (
         <div
           style={{
             backgroundColor: isDarkMode
@@ -144,7 +127,9 @@ export default function StatisticsBoard() {
         >
           <FontAwesomeIcon className="text-customRed" icon={singleCard.icon} />
           <span className="font-bold text-xl mt-3">{singleCard.counter}</span>
-          <span className="font-light text-sm">{singleCard.text}</span>
+          <span className="font-light text-xs sm:text-sm">
+            {singleCard.text}
+          </span>
         </div>
       ))}
     </div>

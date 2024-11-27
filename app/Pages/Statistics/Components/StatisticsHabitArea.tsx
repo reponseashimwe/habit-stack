@@ -12,10 +12,10 @@ function StatisticsHabitArea() {
       style={{
         backgroundColor: isDarkMode ? darkModeColor.background : "white",
       }}
-      className="p-4   mt-4 rounded-md"
+      className="p-1 sm:p-4   mt-4 rounded-md"
     >
       {allHabits.map((habit, index) => (
-        <div key={index}>
+        <div key={index} className="max-w-full">
           <StatisticsHabitCard habit={habit} />
         </div>
       ))}

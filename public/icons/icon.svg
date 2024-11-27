@@ -1,10 +1,14 @@
 <svg
-    viewBox="0 0 64 64"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="#E30B5C"
-    width="72"
-    height="72"
-  >
+  viewBox="0 0 80 80" 
+  xmlns="http://www.w3.org/2000/svg"
+  width="72"
+  height="72"
+>
+  <!-- Background rectangle -->
+  <rect x="0" y="0" width="80" height="80" fill="#fff" rx="8" ry="8" /> <!-- Added rounded corners -->
+
+  <!-- Group with adjusted translation for padding -->
+  <g transform="translate(8, 8)"> <!-- Creates 8px padding -->
     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
     <g
       id="SVGRepo_tracerCarrier"
@@ -71,4 +75,5 @@
         ></path>
       </g>
     </g>
-  </svg>
+  </g>
+</svg>

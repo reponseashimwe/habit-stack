@@ -26,8 +26,8 @@ export default function DataFormModal({
   onChange,
   onClick,
 }: DataFormModalProps) {
-  const defaultClasses = `top-[6%] left-1/2 transform -translate-x-1/2 w-[80%]   z-50 p-10 
-  rounded-md shadow-md   absolute`;
+  const defaultClasses = `top-[6%] left-1/2 transform -translate-x-1/2 w-[80%]   z-50 p-5 md:p-10 
+  rounded-md shadow-md   absolute text-xs`;
 
   const {
     darkModeObject: { isDarkMode },
@@ -59,7 +59,7 @@ export default function DataFormModal({
 
           <Button
             onClick={onClick}
-            className="bg-customRed text-white mt-10 p-3 px-6"
+            className="bg-customRed text-white mt-10 p-1.5 sm:p-3 px-6"
           >
             {FormTitle === "Add Area" ? "Add Area" : "Edit Area"}
           </Button>
