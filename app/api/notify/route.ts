@@ -78,6 +78,10 @@ export async function GET(req: Request) {
     await Promise.all(notificationPromises);
 
     return NextResponse.json({
+      message: "No habits to notify",
+      formattedTime,
+      currentDay,
+      date,
       message: "Notifications sent successfully",
       habits,
       users,
