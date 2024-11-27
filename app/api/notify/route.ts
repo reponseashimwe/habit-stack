@@ -9,6 +9,7 @@ export async function GET(req: Request) {
 
   try {
     console.log("Connected to DB");
+    const date = new Date().toString();
 
     const now = getCATTime();
     const flooredMinutes = Math.floor(now.getMinutes() / 10) * 10;
@@ -35,6 +36,7 @@ export async function GET(req: Request) {
         message: "No habits to notify",
         formattedTime,
         currentDay,
+        date,
       });
     }
 
