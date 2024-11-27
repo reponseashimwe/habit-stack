@@ -36,6 +36,7 @@ function Dashboard() {
       if ("Notification" in window) {
         const permission = await Notification.requestPermission();
         if (permission === "granted") {
+          console.log("granted");
           subscribeUser(user.id); // Subscribe the user to push notifications
         }
       }
@@ -65,12 +66,13 @@ function Dashboard() {
             "Push Notification Worker registered with scope:",
             registration.scope
           );
+          requestPermission();
         })
         .catch((error) => {
           console.error("Push Notification Worker registration failed:", error);
         });
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     console.log("requesting permission");
