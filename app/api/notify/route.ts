@@ -23,16 +23,18 @@ export async function GET(req: Request) {
     // Get current day abbreviation (e.g., "Mo", "Tu")
     const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     const currentDay = days[flooredTime.getDay()];
+    let response: any;
 
     // Fetch habits matching the criteria
     const habits = await HabitsCollection.find({
       "frequency.days": currentDay,
       notificationTime: formattedTime,
       isNotificationOn: true,
+      queryTimestamp: new Date(),
     });
 
     if (habits.length === 0) {
-      return NextResponse.json({
+      const response = NextResponse.json({
         message: "No habits to notify",
         formattedTime,
         currentDay,
@@ -55,7 +57,7 @@ export async function GET(req: Request) {
     });
 
     if (users.length === 0) {
-      return NextResponse.json({ message: "No users with subscriptions" });
+      response = NextResponse.json({ message: "No users with subscriptions" });
     }
     console.log(users);
 
@@ -77,7 +79,7 @@ export async function GET(req: Request) {
 
     await Promise.all(notificationPromises);
 
-    return NextResponse.json({
+    response = NextResponse.json({
       formattedTime,
       currentDay,
       date,
@@ -85,6 +87,9 @@ export async function GET(req: Request) {
       habits,
       users,
     });
+
+    response.headers.set("Cache-Control", "no-store");
+    return response;
   } catch (error) {
     console.error("Error sending notifications:", error);
     return NextResponse.json(
