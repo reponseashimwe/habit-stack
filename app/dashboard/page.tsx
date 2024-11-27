@@ -12,7 +12,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { darkModeColor, defaultColor } from "@/colors";
 import { useRouter } from "next/navigation";
-import { subscribeUser } from "../SendNotification";
+import { subscribeUser, urlB64ToUint8Array } from "../SendNotification";
 
 function Dashboard() {
   const { user } = useUser(); // Get the user object from Clerk
@@ -36,7 +36,7 @@ function Dashboard() {
       if ("Notification" in window) {
         const permission = await Notification.requestPermission();
         if (permission === "granted") {
-          subscribeUser(user.id); // Subscribe the user to push notifications
+          console.log("granted");
         }
       }
     }
@@ -44,7 +44,7 @@ function Dashboard() {
 
   // Handle service worker registration
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
+    if (user && "serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js") // Register the main service worker (handles caching, etc.)
         .then((registration) => {
@@ -62,19 +62,41 @@ function Dashboard() {
         .register("/worker/index.js") // Register the push notification worker
         .then((registration) => {
           console.log(
-            "Push Notification Worker registered with scope:",
+            "Push Service Worker registered with scope:",
             registration.scope
           );
+          const applicationServerKey = urlB64ToUint8Array(
+            process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
+          );
+
+          registration.pushManager
+            .subscribe({
+              userVisibleOnly: true,
+              applicationServerKey,
+            })
+            .then(async (subscription) => {
+              const response = await fetch("/api/subscribe", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+
+                body: JSON.stringify({
+                  subscription,
+                  clerkUserId: user.id,
+                }),
+              });
+
+              console.log(response);
+            });
         })
         .catch((error) => {
           console.error("Push Notification Worker registration failed:", error);
         });
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
-    console.log("requesting permission");
-
     if ("Notification" in window) {
       requestPermission(); // Request notification permission when the page loads
     }
