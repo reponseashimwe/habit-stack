@@ -12,7 +12,7 @@ export async function GET(req: Request) {
     const date = new Date().toString();
 
     const now = getCATTime();
-    const flooredMinutes = Math.floor(now.getMinutes() / 10) * 10;
+    const flooredMinutes = Math.round(now.getMinutes() / 10) * 10;
     const flooredTime = new Date(now.setMinutes(flooredMinutes, 0, 0));
     const formattedTime = flooredTime.toLocaleTimeString("en-US", {
       hour: "2-digit",
@@ -34,7 +34,7 @@ export async function GET(req: Request) {
     });
 
     if (habits.length === 0) {
-      const response = NextResponse.json({
+      response = NextResponse.json({
         message: "No habits to notify",
         formattedTime,
         currentDay,
@@ -58,35 +58,34 @@ export async function GET(req: Request) {
 
     if (users.length === 0) {
       response = NextResponse.json({ message: "No users with subscriptions" });
+    } else {
+      // Fetch all users with a subscription field
+      const notificationPromises = users.map((user) => {
+        const userSpecificHabits = userHabits[user.clerkUserId];
+        const habitNames = userSpecificHabits
+          .map((habit: any) => habit.name)
+          .join(", ");
+
+        const notificationPayload = {
+          title: "Habit Reminder",
+          body: `Don't forget: ${habitNames}`,
+          icon: "/icons/icon.svg", // Optional: Update with your icon path
+        };
+
+        return sendNotification(user, notificationPayload);
+      });
+
+      await Promise.all(notificationPromises);
+
+      response = NextResponse.json({
+        formattedTime,
+        currentDay,
+        date,
+        message: "Notifications sent successfully",
+        habits,
+        users,
+      });
     }
-    console.log(users);
-
-    // Fetch all users with a subscription field
-    const notificationPromises = users.map((user) => {
-      const userSpecificHabits = userHabits[user.clerkUserId];
-      const habitNames = userSpecificHabits
-        .map((habit: any) => habit.name)
-        .join(", ");
-
-      const notificationPayload = {
-        title: "Habit Reminder",
-        body: `Don't forget: ${habitNames}`,
-        icon: "/icons/icon.svg", // Optional: Update with your icon path
-      };
-
-      return sendNotification(user, notificationPayload);
-    });
-
-    await Promise.all(notificationPromises);
-
-    response = NextResponse.json({
-      formattedTime,
-      currentDay,
-      date,
-      message: "Notifications sent successfully",
-      habits,
-      users,
-    });
 
     response.headers.set("Cache-Control", "no-store");
     return response;
