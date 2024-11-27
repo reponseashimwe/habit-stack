@@ -40,53 +40,54 @@ export async function GET(req: Request) {
         currentDay,
         date,
       });
-    }
-
-    const userHabits = habits.reduce((acc: any, habit: any) => {
-      const userId = habit.clerkUserId;
-      acc[userId] = acc[userId] || [];
-      acc[userId].push(habit);
-      return acc;
-    }, {});
-
-    // Fetch users with push subscriptions
-    const userIds = Object.keys(userHabits);
-    const users = await User.find({
-      clerkUserId: { $in: userIds },
-      pushSubscription: { $exists: true, $ne: null },
-    });
-
-    if (users.length === 0) {
-      response = NextResponse.json({ message: "No users with subscriptions" });
     } else {
-      // Fetch all users with a subscription field
-      const notificationPromises = users.map((user) => {
-        const userSpecificHabits = userHabits[user.clerkUserId];
-        const habitNames = userSpecificHabits
-          .map((habit: any) => habit.name)
-          .join(", ");
+      const userHabits = habits.reduce((acc: any, habit: any) => {
+        const userId = habit.clerkUserId;
+        acc[userId] = acc[userId] || [];
+        acc[userId].push(habit);
+        return acc;
+      }, {});
 
-        const notificationPayload = {
-          title: "Habit Reminder",
-          body: `Don't forget: ${habitNames}`,
-          icon: "/icons/icon.svg", // Optional: Update with your icon path
-        };
-
-        return sendNotification(user, notificationPayload);
+      // Fetch users with push subscriptions
+      const userIds = Object.keys(userHabits);
+      const users = await User.find({
+        clerkUserId: { $in: userIds },
+        pushSubscription: { $exists: true, $ne: null },
       });
 
-      await Promise.all(notificationPromises);
+      if (users.length === 0) {
+        response = NextResponse.json({
+          message: "No users with subscriptions",
+        });
+      } else {
+        // Fetch all users with a subscription field
+        const notificationPromises = users.map((user) => {
+          const userSpecificHabits = userHabits[user.clerkUserId];
+          const habitNames = userSpecificHabits
+            .map((habit: any) => habit.name)
+            .join(", ");
 
-      response = NextResponse.json({
-        formattedTime,
-        currentDay,
-        date,
-        message: "Notifications sent successfully",
-        habits,
-        users,
-      });
+          const notificationPayload = {
+            title: "Habit Reminder",
+            body: `Don't forget: ${habitNames}`,
+            icon: "/icons/icon.svg", // Optional: Update with your icon path
+          };
+
+          return sendNotification(user, notificationPayload);
+        });
+
+        await Promise.all(notificationPromises);
+
+        response = NextResponse.json({
+          formattedTime,
+          currentDay,
+          date,
+          message: "Notifications sent successfully",
+          habits,
+          users,
+        });
+      }
     }
-
     response.headers.set("Cache-Control", "no-store");
     return response;
   } catch (error) {
