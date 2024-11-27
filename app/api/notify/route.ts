@@ -16,6 +16,7 @@ export async function GET(req: Request) {
     const formattedTime = flooredTime.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
+      hour12: true,
     });
 
     // Get current day abbreviation (e.g., "Mo", "Tu")
