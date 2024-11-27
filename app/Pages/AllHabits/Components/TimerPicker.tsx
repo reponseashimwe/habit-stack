@@ -28,6 +28,8 @@ function TimerPicker({
     { text: "12", isSelected: false },
   ]);
 
+  const minutes = ["00", "10", "20", "30", "40", "50"];
+
   // Meridiem
   const [meridiem, setMeridiem] = useState([
     { text: "AM", isSelected: true },
@@ -69,10 +71,11 @@ function TimerPicker({
   //Update the time values text in the array
   function updateTimeValuesText(
     event: React.ChangeEvent<HTMLInputElement>,
-    index: number
+    index: number,
+    value: string = ""
   ) {
     const timesValuesCopy = [...timeValues];
-    const currentText = event.target.value;
+    const currentText = event.target.value || value;
     const parsedValue = parseInt(currentText, 10);
 
     // Check if the input consists of only digits
@@ -106,6 +109,12 @@ function TimerPicker({
     }
   }
 
+  const setMinutes = (value: string) => {
+    const timesValuesCopy = [...timeValues];
+
+    timesValuesCopy[1].text = value;
+    setTimeValues(timesValuesCopy);
+  };
   //Handle the exit of each input
   function handleOnBlur(index: number) {
     const timesValuesCopy = [...timeValues];
@@ -177,6 +186,7 @@ function TimerPicker({
 
     getCurrentTime();
   }, [openTimePickerWindow]);
+  console.log(timeValues);
 
   // JSX
   return (
@@ -184,7 +194,7 @@ function TimerPicker({
       style={{
         backgroundColor: isDarkMode ? darkModeColor.background : "white",
       }}
-      className={` w-[413px] max-w-[80%] top-[89px] left-1/2
+      className={` w-[413px] max-w-full sm:max-w-[80%] top-[89px] left-1/2
     transform -translate-x-1/2 z-50 p-7 rounded-md shadow-md ${
       openTimePickerWindow ? "absolute" : "hidden"
     } `}
@@ -205,7 +215,7 @@ function TimerPicker({
       </span>
       {/* -------------------------------------------- */}
       {/* Input fields */}
-      <div className=" flex flex-col md:flex-row gap-8 mt-9">
+      <div className=" flex flex-col gap-8 mt-9">
         <div className=" flex gap-2 justify-center items-center">
           {/* Hours field */}
           <input
@@ -225,35 +235,40 @@ function TimerPicker({
                 ? defaultColor.default
                 : defaultColor.textColorGray,
             }}
-            className=" w-[100px] text-[45px] p-4 rounded-md text-center outline-none"
+            className="w-24 sm:w-[100px]  h-full text-[45px] p-4 rounded-md text-center outline-none"
           />
 
-          <span className="text-2x font-bold">:</span>
+          <span className="text-lg sm:text-2x font-bold">:</span>
 
           {/* minutes field */}
-          <input
-            value={timeValues[1].text}
-            ref={minutesRef}
-            onClick={() => {
-              updateTimeValues(1);
-            }}
-            onChange={(event) => updateTimeValuesText(event, 1)}
-            onBlur={() => handleOnBlur(1)}
-            readOnly={!timeValues[1].isSelected}
-            style={{
-              backgroundColor: timeValues[1].isSelected
-                ? defaultColor[100]
-                : defaultColor.backgroundSlate,
-              color: timeValues[1].isSelected
-                ? defaultColor.default
-                : defaultColor.textColorGray,
-            }}
-            className=" w-[100px] text-[45px] p-4 rounded-md text-center outline-none"
-          />
+
+          <div className="flex grid grid-cols-2 gap-3 justify-center">
+            {minutes.map((timeValue, index) => (
+              <span
+                key={index}
+                onClick={() => {
+                  setMinutes(timeValue);
+                }}
+                style={{
+                  backgroundColor:
+                    timeValues[1].text == timeValue
+                      ? defaultColor[100]
+                      : defaultColor.backgroundSlate,
+                  color:
+                    timeValues[1].text == timeValue
+                      ? defaultColor.default
+                      : defaultColor.textColorGray,
+                }}
+                className="text-md sm:text-xl flex justify-center items-center max-sm:w-12 max-sm:h-8 w-20 h-12 rounded-md cursor-pointer select-none"
+              >
+                {timeValue}
+              </span>
+            ))}
+          </div>
         </div>
         {/* -------------------------------------------- */}
         {/* AM OR PM Options */}
-        <div className="flex flex-row md:flex-col gap-3  ">
+        <div className="flex flex-row  gap-3 justify-center">
           {meridiem.map((singleMeridiem, index) => (
             <span
               key={index}
@@ -266,7 +281,7 @@ function TimerPicker({
                   ? defaultColor.default
                   : defaultColor.textColorGray,
               }}
-              className="  text-xl flex justify-center items-center w-[104px] h-[45px] rounded-md cursor-pointer select-none"
+              className=" text-lg sm:text-xl flex justify-center items-center w-16 h-8 sm:w-24 sm:h-12 rounded-md cursor-pointer select-none"
             >
               {singleMeridiem.text}
             </span>

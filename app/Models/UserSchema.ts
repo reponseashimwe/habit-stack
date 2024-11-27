@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     clerkUserId: { type: String, unique: true, required: true },
     emailAddress: { type: String, required: true },
+    pushSubscription: { type: Object },
   },
   { timestamps: true }
 );
