@@ -1,6 +1,6 @@
 {
   "functions": {
-    "app/api/notify/route.js": {
+    "app/api/notify/route.ts": {
       "maxDuration": 10,
       "memory": 128
     }

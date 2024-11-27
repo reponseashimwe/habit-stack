@@ -2,14 +2,14 @@ import toast from "react-hot-toast";
 
 export function sendNotifications(habitName: string) {
   if ("Notification" in window && Notification.permission === "granted") {
-    // const notification = new Notification("Habit Tracker", {
-    //   body: `It's time to do your habit: ${habitName}`,
-    //   icon: "/icons/icon.svg",
-    // });
-    // // Close the notification after a specified time (e.g., 5 seconds)
-    // setTimeout(() => {
-    //   notification.close();
-    // }, 5000); // 5000 milliseconds = 5 seconds
+    const notification = new Notification("Habit Tracker", {
+      body: `It's time to do your habit: ${habitName}`,
+      icon: "/icons/icon.svg",
+    });
+    // Close the notification after a specified time (e.g., 5 seconds)
+    setTimeout(() => {
+      notification.close();
+    }, 5000); // 5000 milliseconds = 5 seconds
   }
 }
 
