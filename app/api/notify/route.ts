@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   try {
     console.log("Connected to DB");
 
-    const now = getCATTimeWithIntl();
+    const now = getCATTime();
     const flooredMinutes = Math.floor(now.getMinutes() / 10) * 10;
     const flooredTime = new Date(now.setMinutes(flooredMinutes, 0, 0));
     const formattedTime = flooredTime.toLocaleTimeString("en-US", {
@@ -106,9 +106,12 @@ const sendNotification = async (user: any, notification: any) => {
     });
 };
 
-function getCATTimeWithIntl() {
+function getCATTime() {
   const date = new Date();
-  const utc = date.getTime() + date.getTimezoneOffset() * 60000; // Convert to UTC
-  const cat = new Date(utc + 2 * 3600000); // Add 2 hours for CAT
-  return cat;
+
+  // Convert to UTC (in milliseconds) and add 2 hours for CAT (+2 UTC)
+  const utc = date.getTime() + date.getTimezoneOffset() * 60000; // Convert local time to UTC
+  const catTime = new Date(utc + 2 * 3600000); // Add 2 hours to UTC for CAT
+
+  return catTime;
 }
