@@ -4,7 +4,7 @@ import User from "@/app/Models/UserSchema"; // Adjust the path based on your pro
 import { NextResponse } from "next/server";
 import webPush from "web-push";
 
-export async function GET(req: Request) {
+export async function GET(req: any) {
   await connectToDB();
 
   try {
