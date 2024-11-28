@@ -86,6 +86,7 @@ async function updateHabitInMongoDB(habit: HabitType) {
         frequency: habit.frequency,
         notificationTime: habit.notificationTime,
         isNotificationOn: habit.isNotificationOn,
+        isShared: habit.isShared,
         completedDays: habit.completedDays,
       }),
     });
