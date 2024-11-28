@@ -217,6 +217,7 @@ async function editTheHabitInServer(habit: HabitType) {
       notificationTime: habit.notificationTime,
       isNotificationOn: habit.isNotificationOn,
       completedDays: habit.completedDays,
+      isShared: habit.isShared,
     }),
   });
 

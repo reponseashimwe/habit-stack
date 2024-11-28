@@ -65,6 +65,7 @@ export async function editHabit({
           notificationTime: updatedHabit.notificationTime,
           isNotificationOn: updatedHabit.isNotificationOn,
           completedDays: updatedHabit.completedDays,
+          isShared: updatedHabit.isShared,
         }),
       }
     );
