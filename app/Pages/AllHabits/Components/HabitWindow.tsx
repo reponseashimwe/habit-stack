@@ -51,6 +51,7 @@ function HabitWindow() {
     frequency: [{ type: "Daily", days: ["Mo"], number: 1 }],
     notificationTime: "",
     isNotificationOn: false,
+    isShared: false,
     areas: [],
     completedDays: [],
   });
@@ -68,6 +69,7 @@ function HabitWindow() {
         frequency: [{ type: "Daily", days: ["Mo"], number: 1 }],
         notificationTime: "",
         isNotificationOn: false,
+        isShared: false,
         areas: [],
         completedDays: [],
       });
@@ -214,8 +216,11 @@ function HabitWindow() {
         onChangeDaysOption={changeDaysOption}
         onChangeWeeksOption={changeWeeksOption}
       />
+
       <Reminder habitItem={habitItem} setHabitItem={setHabitItem} />
       <HabitWindowArea onChange={getSelectedAreaItems} />
+      <Share habitItem={habitItem} setHabitItem={setHabitItem} />
+
       <SaveButton habit={habitItem} />
     </div>
   );
@@ -629,6 +634,7 @@ function Reminder({
 
   const { isDarkMode } = darkModeObject;
   const [isOn, setIsOn] = useState(false);
+  const [isShared, setIsShared] = useState(false);
 
   function updateToggle() {
     const copyHabitItem = { ...habitItem };
@@ -701,6 +707,71 @@ function Reminder({
         <div
           className={`bg-white h-6  w-6 rounded-full ${
             isOn ? "right-[3px]" : "left-[3px]"
+          } top-[3px] absolute`}
+        ></div>
+      </div>
+    );
+  }
+}
+
+function Share({
+  habitItem,
+  setHabitItem,
+}: {
+  habitItem: HabitType;
+  setHabitItem: React.Dispatch<React.SetStateAction<HabitType>>;
+}) {
+  const { darkModeObject, selectedItemsObject, habitWindowObject } =
+    useGlobalContextProvider();
+  const { selectedItems } = selectedItemsObject;
+  const { openHabitWindow } = habitWindowObject;
+
+  const { isDarkMode } = darkModeObject;
+  const [isShared, setIsShared] = useState(false);
+  function updateShared() {
+    const copyHabitItem = { ...habitItem };
+    copyHabitItem.isShared = !isShared;
+    setHabitItem(copyHabitItem);
+    setIsShared(!isShared);
+  }
+
+  //If there is selected items
+  //// 1. get the selected habit
+  //. 2. check if the notification is on
+  // 3. set the isOn state
+  // 4. update the UI
+  //If there is no selected items, set the isOn state to false
+  useEffect(() => {
+    if (selectedItems) {
+      const currentHabitSelected = selectedItems as HabitType;
+      const { isShared } = currentHabitSelected;
+      setIsShared(isShared);
+    } else {
+      setIsShared(false);
+    }
+  }, [openHabitWindow]);
+
+  return (
+    <div className="flex flex-col gap-2 mt-10 px-3 ">
+      <div className="flex justify-between">
+        <span className="font-semibold text-[15px]">Share</span>
+        <ToggleShare />
+      </div>
+    </div>
+  );
+
+  function ToggleShare() {
+    return (
+      <div
+        className={`${
+          isShared ? "bg-customRed" : "bg-slate-400"
+        } w-16 h-[30px] relative rounded-lg flex`}
+      >
+        <div onClick={updateShared} className="w-1/2 h-full  "></div>
+        <div onClick={updateShared} className="w-1/2 h-full "></div>
+        <div
+          className={`bg-white h-6  w-6 rounded-full ${
+            isShared ? "right-[3px]" : "left-[3px]"
           } top-[3px] absolute`}
         ></div>
       </div>

@@ -21,7 +21,7 @@ export async function GET(req: any) {
     const date = new Date().toString();
 
     const { datetime } = await res.json();
-    const now = new Date(datetime);
+    const now = getCATTime();
 
     const flooredMinutes = Math.round(now.getMinutes() / 10) * 10;
     const flooredTime = new Date(now.setMinutes(flooredMinutes, 0, 0));
@@ -116,7 +116,7 @@ export async function GET(req: any) {
   }
 }
 
-const sendNotification = async (user: any, notification: any) => {
+export const sendNotification = async (user: any, notification: any) => {
   const publicVapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
   const privateVapidKey = process.env.VAPID_PRIVATE_KEY!;
 
@@ -134,7 +134,7 @@ const sendNotification = async (user: any, notification: any) => {
     });
 };
 
-function getCATTime() {
+export function getCATTime() {
   const date = new Date();
 
   // Convert to UTC (in milliseconds) and add 2 hours for CAT (+2 UTC)

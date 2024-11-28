@@ -17,6 +17,8 @@ export type HabitType = {
   isNotificationOn: boolean;
   areas: AreaType[];
   completedDays: completedDays[];
+  habitLikes?: string[];
+  isShared: boolean;
 };
 
 type FrequencyType = {
@@ -28,4 +30,5 @@ type FrequencyType = {
 type completedDays = {
   _id?: string;
   date: string;
+  reminderSent: boolean;
 };

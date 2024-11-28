@@ -17,6 +17,7 @@ const AreaSchema = new Schema({
 const CompletedDaySchema = new Schema({
   _id: { type: String, required: false },
   date: { type: String, required: true },
+  reminderSent: { type: Boolean, required: true, default: false },
 });
 
 // Define the main HabitType schema
@@ -27,8 +28,10 @@ const HabitSchema = new Schema({
   frequency: { type: [FrequencySchema], required: true },
   notificationTime: { type: String },
   isNotificationOn: { type: Boolean, required: true },
+  isShared: { type: Boolean, required: true, default: false },
   areas: { type: [AreaSchema], required: true, default: [] },
   completedDays: { type: [CompletedDaySchema], required: true, default: [] },
+  habitLikes: { type: [String], required: true, default: [] },
 });
 
 const HabitsCollection =

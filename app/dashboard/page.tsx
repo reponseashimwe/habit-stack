@@ -12,7 +12,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { darkModeColor, defaultColor } from "@/colors";
 import { useRouter } from "next/navigation";
-import { subscribeUser, urlB64ToUint8Array } from "../SendNotification";
+import { urlB64ToUint8Array } from "../SendNotification";
+import Shared from "../Pages/Statistics copy/Shared";
 
 function Dashboard() {
   const { user } = useUser(); // Get the user object from Clerk
@@ -119,6 +120,9 @@ function Dashboard() {
       break;
     case "Areas":
       selectComponent = <Areas />;
+      break;
+    case "Community":
+      selectComponent = <Shared />;
       break;
     case "All Areas":
       break;

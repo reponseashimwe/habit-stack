@@ -8,6 +8,9 @@ export type GlobalContextType = {
     menuItems: menuItemType[];
     setMenuItems: Dispatch<SetStateAction<menuItemType[]>>;
   };
+  habitLikes: {
+    toggleHabitLike: () => any;
+  };
   openSideBarObject: {
     openSideBar: boolean;
     setOpenSideBar: Dispatch<SetStateAction<boolean>>;
@@ -33,6 +36,11 @@ export type GlobalContextType = {
   allHabitsObject: {
     allHabits: HabitType[];
     setAllHabits: Dispatch<SetStateAction<HabitType[]>>;
+  };
+
+  sharedHabitsObject: {
+    sharedHabits: HabitType[];
+    setSharedHabits: Dispatch<SetStateAction<HabitType[]>>;
   };
 
   selectedCurrentDayObject: {

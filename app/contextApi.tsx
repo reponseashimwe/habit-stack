@@ -14,6 +14,7 @@ import {
   faCheckCircle,
   faFlask,
   faGlobe,
+  faPeopleGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faChartSimple,
@@ -30,6 +31,7 @@ import {
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { getDateString } from "./utils/allHabitsUtils/DateFunctions";
 import { useUser } from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 const GlobalContext = createContext<GlobalContextType>({
   menuItemsObject: {
@@ -61,6 +63,10 @@ const GlobalContext = createContext<GlobalContextType>({
   allHabitsObject: {
     allHabits: [],
     setAllHabits: () => {},
+  },
+  sharedHabitsObject: {
+    sharedHabits: [],
+    setSharedHabits: () => {},
   },
   selectedCurrentDayObject: {
     selectedCurrentDate: "",
@@ -113,6 +119,11 @@ const GlobalContext = createContext<GlobalContextType>({
     searchInput: "",
     setSearchInput: () => {},
   },
+
+  habitLikes: {
+    toggleHabitLike: () => {},
+  },
+
   loadingObject: {
     isLoading: true,
     setIsLoading: () => {},
@@ -124,9 +135,11 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
     { name: "All Habits", isSelected: true, icon: faCheckCircle },
     { name: "Statistics", isSelected: false, icon: faChartSimple },
     { name: "Areas", isSelected: false, icon: faLayerGroup },
+    { name: "Community", isSelected: false, icon: faPeopleGroup },
   ]);
 
   const [allHabits, setAllHabits] = useState<HabitType[]>([]);
+  const [sharedHabits, setSharedHabits] = useState<HabitType[]>([]);
 
   const [darkModeItems, setDarkModeItems] = useState<DarkModeItem[]>([
     { id: 1, icon: faSun, isSelected: true },
@@ -207,6 +220,49 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
       }
     };
 
+    const fetchSharedHabits = async () => {
+      try {
+        const response = await fetch(`/api/shared-habits?clerkId=${user?.id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch habits");
+        }
+        const data: { habits: HabitType[] } = await response.json();
+
+        //Convert the icon of the habit from string to IconProp
+        const updatedHabits = data.habits.map((habit: HabitType) => {
+          if (typeof habit.icon === "string") {
+            return {
+              ...habit,
+              icon: textToIcon(habit.icon) as IconProp,
+            };
+          }
+          return habit;
+        });
+
+        //Update the icons in the areas property from string to icon props
+        const updatedHabitsWithAreas = updatedHabits.map((habit: HabitType) => {
+          const updatedAreas = habit.areas.map((area: AreaType) => {
+            if (typeof area.icon === "string") {
+              return {
+                ...area,
+                icon: textToIcon(area.icon) as IconProp,
+              };
+            }
+            return area;
+          });
+          return { ...habit, areas: updatedAreas };
+        });
+
+        // Update the habits array with the updated icons
+
+        setSharedHabits(updatedHabitsWithAreas);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     async function fetchAllAreas() {
       try {
         const response = await fetch(`/api/areas?clerkId=${user?.id}`);
@@ -248,6 +304,7 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
     if (isLoaded && isSignedIn) {
       fetchAllHabits();
       fetchAllAreas();
+      fetchSharedHabits();
     }
   }, [isLoaded, isSignedIn, user?.id]);
 
@@ -279,6 +336,29 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
       const updatedIdOfArea = { ...allArea, _id: _id };
 
       return updatedIdOfArea;
+    } catch (error) {}
+  }
+
+  async function toggleHabitLike() {
+    const like = {
+      clerkUserId: user?.id as string,
+    };
+
+    try {
+      const response = await fetch("/api/habitLikes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(like),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add an area");
+      }
+      //Extract the _id from the response
+      const data = await response.json();
     } catch (error) {}
   }
 
@@ -318,6 +398,10 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
         allHabitsObject: {
           allHabits,
           setAllHabits,
+        },
+        sharedHabitsObject: {
+          sharedHabits,
+          setSharedHabits,
         },
         selectedCurrentDayObject: {
           selectedCurrentDate,
@@ -368,6 +452,9 @@ function GlobalContextProvider({ children }: { children: ReactNode }) {
         loadingObject: {
           isLoading,
           setIsLoading,
+        },
+        habitLikes: {
+          toggleHabitLike: toggleHabitLike,
         },
       }}
     >

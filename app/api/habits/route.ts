@@ -12,6 +12,7 @@ export async function POST(req: Request) {
       frequency,
       notificationTime,
       isNotificationOn,
+      isShared,
       areas,
       completedDays,
     } = await req.json();
@@ -25,8 +26,10 @@ export async function POST(req: Request) {
       frequency,
       notificationTime,
       isNotificationOn,
+      isShared,
       areas,
       completedDays,
+      habitLikes: [],
     });
 
     const savedHabit = await habit.save();
@@ -78,6 +81,7 @@ export async function PUT(request: any) {
       frequency,
       notificationTime,
       isNotificationOn,
+      isShared,
       areas,
       completedDays,
     } = await request.json();
@@ -102,6 +106,7 @@ export async function PUT(request: any) {
           frequency,
           notificationTime,
           isNotificationOn,
+          isShared,
           areas,
           completedDays,
         },

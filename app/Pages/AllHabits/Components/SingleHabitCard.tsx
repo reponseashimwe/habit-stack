@@ -1,4 +1,8 @@
-import { faCode } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCode,
+  faShare,
+  faShareNodes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox, IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
@@ -150,9 +154,20 @@ export function HabitCard({ singleHabit }: { singleHabit: HabitType }) {
                 icon={singleHabit.icon}
               />
               <div className="flex flex-col gap-3">
-                <span className="font-medium max-sm:text-sm">
-                  {singleHabit.name}
-                </span>
+                <div className="flex items-center gap-4">
+                  <span className="font-medium max-sm:text-sm">
+                    {singleHabit.name}
+                  </span>
+
+                  {singleHabit.isShared && (
+                    <FontAwesomeIcon
+                      icon={faShareNodes}
+                      className="opacity-50 mt-1.5"
+                      width={10}
+                      height={10}
+                    />
+                  )}
+                </div>
 
                 <div className="flex gap-2">
                   {singleHabit.areas.map((singleArea, index) => (

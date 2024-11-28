@@ -1,7 +1,5 @@
 import { AreaType } from "@/app/Types/GlobalTypes";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { Dispatch } from "react";
-import { SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { iconToText } from "@/app/Pages/AllHabits/Components/IconsWindow/IconData";
 export default async function addNewArea({
