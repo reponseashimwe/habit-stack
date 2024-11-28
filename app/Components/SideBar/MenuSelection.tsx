@@ -8,7 +8,7 @@ function MenuSelection() {
   const { menuItemsObject } = useGlobalContextProvider();
   const { menuItems } = menuItemsObject;
   return (
-    <div className="flex max-sm:px-6 sm:flex-col max-sm:w-full max-sm:justify-between max-sm:items-center">
+    <div className="flex max-sm:px-0 sm:flex-col max-sm:w-full max-sm:justify-between max-sm:items-center">
       {menuItems.map((menuItem: menuItemType, menuItemIdex: number) => (
         <div key={menuItemIdex}>
           <SingleMenuItem menuItemProp={menuItem} />

@@ -112,7 +112,7 @@ function Dashboard() {
   }, [menuItems]);
 
   switch (selectedMenu?.name) {
-    case "All Habits":
+    case "Habits":
       selectComponent = <AllHabits />;
       break;
     case "Statistics":
