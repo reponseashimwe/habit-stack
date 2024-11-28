@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     await connectToDB();
 
-    const habit = await HabitsCollection.findOne({ _id: habitId, clerkUserId });
+    const habit = await HabitsCollection.findOne({ _id: habitId });
 
     if (!habit) {
       return NextResponse.json({ error: "Habit not found" }, { status: 404 });
