@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import HabitsCollection from "@/app/Models/HabitSchema";
 import connectToDB from "@/app/lib/conntectToDB";
 import User from "@/app/Models/UserSchema";
-import { sendNotification } from "../notify/route";
+import { sendNotification } from "@/app/lib/utils";
 
 export async function POST(req: Request) {
   try {

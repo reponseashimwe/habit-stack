@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDB from "@/app/lib/conntectToDB";
 import HabitsCollection from "@/app/Models/HabitSchema";
-import { getCATTime } from "../notify/route";
+import { getCATTime } from "@/app/lib/utils";
 
 export async function GET(req: any) {
   try {

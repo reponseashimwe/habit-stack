@@ -2,8 +2,7 @@ import connectToDB from "@/app/lib/conntectToDB";
 import HabitsCollection from "@/app/Models/HabitSchema";
 import User from "@/app/Models/UserSchema";
 import { NextResponse } from "next/server";
-import { sendNotification } from "../notify/route";
-import { Db, ObjectId } from "mongodb";
+import { sendNotification } from "@/app/lib/utils";
 
 export async function POST(req: Request) {
   try {

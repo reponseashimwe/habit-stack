@@ -1,26 +1,13 @@
 import connectToDB from "@/app/lib/conntectToDB";
+import { getCATTime, sendNotification } from "@/app/lib/utils";
 import HabitsCollection from "@/app/Models/HabitSchema";
 import User from "@/app/Models/UserSchema"; // Adjust the path based on your project structure
 import { NextResponse } from "next/server";
-import webPush from "web-push";
 
 export async function GET(req: any) {
   await connectToDB();
 
   try {
-    console.log("Connected to DB");
-    const res = await fetch(
-      "https://worldtimeapi.org/api/timezone/Africa/Harare",
-      {
-        cache: "no-store",
-      }
-    );
-    if (!res.ok) {
-      throw new Error("Failed to fetch time from World Time API");
-    }
-    const date = new Date().toString();
-
-    const { datetime } = await res.json();
     const now = getCATTime();
 
     const flooredMinutes = Math.round(now.getMinutes() / 10) * 10;
@@ -49,7 +36,7 @@ export async function GET(req: any) {
         message: "No habits to notify",
         formattedTime,
         currentDay,
-        date,
+        now,
       });
     } else {
       const userHabits = habits.reduce((acc: any, habit: any) => {
@@ -114,32 +101,4 @@ export async function GET(req: any) {
       { status: 500 }
     );
   }
-}
-
-export const sendNotification = async (user: any, notification: any) => {
-  const publicVapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
-  const privateVapidKey = process.env.VAPID_PRIVATE_KEY!;
-
-  // Set web push VAPID details
-  webPush.setVapidDetails(
-    "mailto:your-email@example.com", // Replace with your email
-    publicVapidKey,
-    privateVapidKey
-  );
-
-  webPush
-    .sendNotification(user.pushSubscription, JSON.stringify(notification))
-    .catch((err) => {
-      console.error(`Error sending notification to user ${user.id}:`, err);
-    });
-};
-
-export function getCATTime() {
-  const date = new Date();
-
-  // Convert to UTC (in milliseconds) and add 2 hours for CAT (+2 UTC)
-  const utc = date.getTime() + date.getTimezoneOffset() * 60000; // Convert local time to UTC
-  const catTime = new Date(utc + 2 * 3600000); // Add 2 hours to UTC for CAT
-
-  return catTime;
 }

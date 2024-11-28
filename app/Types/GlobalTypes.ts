@@ -30,5 +30,5 @@ type FrequencyType = {
 type completedDays = {
   _id?: string;
   date: string;
-  reminderSent: boolean;
+  reminderSent?: boolean;
 };

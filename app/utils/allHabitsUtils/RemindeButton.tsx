@@ -30,7 +30,7 @@ const ReminderButton = ({
 
     if (completedToday) {
       setCompletedToday(true);
-      setReminderSent(completedToday.reminderSent); // Check if reminder was sent
+      setReminderSent(completedToday.reminderSent || false); // Check if reminder was sent
     } else {
       setCompletedToday(false);
     }
