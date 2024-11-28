@@ -60,7 +60,11 @@ export default function LikeHabit({
   const isLiked = habit.habitLikes?.includes(clerkUserId);
 
   return (
-    <button onClick={handleLike} className="flex items-center gap-2  text-xs ">
+    <button
+      onClick={handleLike}
+      className="flex items-center gap-2  text-xs "
+      disabled={clerkUserId == habit.clerkUserId}
+    >
       <FontAwesomeIcon
         icon={isLiked ? solidHeart : outlineHeart}
         width={16}
