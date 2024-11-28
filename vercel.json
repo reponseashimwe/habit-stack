@@ -1,8 +1,10 @@
 {
-  "functions": {
-    "app/api/notify/route.ts": {
-      "maxDuration": 10,
-      "memory": 128
+  "routes": [
+    {
+      "src": "/api/notify",
+      "headers": {
+        "cache-control": "no-store"
+      }
     }
-  }
+  ]
 }

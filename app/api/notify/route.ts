@@ -9,9 +9,20 @@ export async function GET(req: any) {
 
   try {
     console.log("Connected to DB");
+    const res = await fetch(
+      "https://worldtimeapi.org/api/timezone/Africa/Harare",
+      {
+        cache: "no-store",
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch time from World Time API");
+    }
     const date = new Date().toString();
 
-    const now = getCATTime();
+    const { datetime } = await res.json();
+    const now = new Date(datetime);
+
     const flooredMinutes = Math.round(now.getMinutes() / 10) * 10;
     const flooredTime = new Date(now.setMinutes(flooredMinutes, 0, 0));
     const formattedTime = flooredTime.toLocaleTimeString("en-US", {
