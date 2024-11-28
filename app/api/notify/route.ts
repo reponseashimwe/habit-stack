@@ -41,7 +41,7 @@ export async function GET(req: any) {
       "frequency.days": currentDay,
       notificationTime: formattedTime,
       isNotificationOn: true,
-      queryTimestamp: new Date(),
+      queryTimestamp: now,
     });
 
     if (habits.length === 0) {
@@ -69,6 +69,7 @@ export async function GET(req: any) {
       if (users.length === 0) {
         response = NextResponse.json({
           message: "No users with subscriptions",
+          now,
         });
       } else {
         // Fetch all users with a subscription field
@@ -92,7 +93,7 @@ export async function GET(req: any) {
         response = NextResponse.json({
           formattedTime,
           currentDay,
-          date,
+          now,
           message: "Notifications sent successfully",
           habits,
           users,
