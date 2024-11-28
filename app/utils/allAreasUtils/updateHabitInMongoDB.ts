@@ -15,6 +15,7 @@ async function updateHabitInMongoDB(habit: HabitType) {
         notificationTime: habit.notificationTime,
         isNotificationOn: habit.isNotificationOn,
         completedDays: habit.completedDays,
+        isShared: habit.isShared,
       }),
     });
 
